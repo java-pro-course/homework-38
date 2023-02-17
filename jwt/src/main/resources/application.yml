@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:55000/jwt_auth
+    username: postgres
+    password: postgrespw
+  liquibase:
+    enabled: true
+    liquibase-schema: liquibase
+    change-log: classpath:db/changelog-master.yml
