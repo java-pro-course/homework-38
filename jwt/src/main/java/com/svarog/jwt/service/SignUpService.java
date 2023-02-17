@@ -1,7 +1,7 @@
 package com.svarog.jwt.service;
 
 import com.svarog.jwt.dto.CreateUser;
-import com.svarog.jwt.dto.RsCreateUser;
+import com.svarog.jwt.dto.RsCommonUser;
 import com.svarog.jwt.entity.UserEntity;
 import com.svarog.jwt.repository.UserRepository;
 import com.svarog.jwt.until.JwtUntil;
@@ -24,13 +24,13 @@ public class SignUpService {
 
         user = repository.save(user);
 
-        RsCreateUser rsCreateUser = new RsCreateUser()
+        RsCommonUser rsCommonUser = new RsCommonUser()
                 .setId(user.getId())
                 .setName(user.getName())
                 .setSurname(user.getSurname())
                 .setEmail(user.getEmail())
                 .setPassword(user.getPassword())
                 .setToken(jwtUntil.generateToken());
-        return ResponseEntity.ok(rsCreateUser);
+        return ResponseEntity.ok(rsCommonUser);
     }
 }
