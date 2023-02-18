@@ -5,6 +5,8 @@ import com.svarog.jwt.dto.RsCommonUser;
 import com.svarog.jwt.entity.UserEntity;
 import com.svarog.jwt.repository.UserRepository;
 import com.svarog.jwt.until.JwtUntil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +31,13 @@ public class LoginService {
                     .status(HttpStatus.BAD_REQUEST)
                     .body("The password is incorrect!");
         }
-        String newToken = jwtUntil.generateToken();
+
+        Claims claims = Jwts.claims();
+        claims.put("id", user.get().getId());
+        claims.put("name", user.get().getName());
+        claims.put("surname", user.get().getSurname());
+
+        String newToken = jwtUntil.generateToken(claims);
 
         RsCommonUser response = new RsCommonUser()
                 .setId(user.get().getId())

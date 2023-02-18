@@ -5,6 +5,7 @@ import com.svarog.jwt.dto.RsCommonUser;
 import com.svarog.jwt.entity.UserEntity;
 import com.svarog.jwt.repository.UserRepository;
 import com.svarog.jwt.until.JwtUntil;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,7 @@ public class SignUpService {
                 .setSurname(user.getSurname())
                 .setEmail(user.getEmail())
                 .setPassword(user.getPassword())
-                .setToken(jwtUntil.generateToken());
+                .setToken(jwtUntil.generateToken(Jwts.claims()));
         return ResponseEntity.ok(rsCommonUser);
     }
 }

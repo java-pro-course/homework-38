@@ -1,5 +1,6 @@
 package com.svarog.jwt.until;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
@@ -10,13 +11,15 @@ import java.util.Date;
 @Component
 @Slf4j
 public class JwtUntil {
-    public String generateToken(){
+    public String generateToken(Claims claims){
         long nowMill = System.currentTimeMillis();
         long expMill = nowMill + 1_000_000_000_000_000L;
         Date exp = new Date(expMill);
 
         return Jwts.builder()
-                .setIssuedAt(exp)
+                .setClaims(claims)
+                .setIssuedAt(new Date(nowMill))
+                .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS512, "secret")
                 .compact();
     }
@@ -29,5 +32,15 @@ public class JwtUntil {
             log.error(e.getMessage());
         }
         return isValid;
+    }
+    public Claims getClaims (String token){
+        try{
+            return Jwts.parser().setSigningKey("secret")
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e){
+            log.error(e.getMessage() + " => " + e);
+        }
+        return null;
     }
 }
