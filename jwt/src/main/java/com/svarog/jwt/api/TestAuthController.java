@@ -19,7 +19,7 @@ public class TestAuthController {
         return ResponseEntity.ok("Token invalid!😨");
     }
 
-    @GetMapping("be-lucky")
+    @GetMapping("be-lucky")//Это было долго....
     public ResponseEntity<?> beLucky(@RequestHeader("Authorization") String token){
         Claims parseToken = jwtUntil.getClaims(token);
         return ResponseEntity.ok(parseToken.toString());
