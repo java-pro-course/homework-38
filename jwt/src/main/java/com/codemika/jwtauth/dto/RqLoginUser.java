@@ -5,10 +5,7 @@ import lombok.experimental.Accessors;
 
 @Data
 @Accessors(chain = true)
-public class RsCreateUser {
-    private Long id;
-    private String name;
-    private String surname;
+public class RqLoginUser {
     private String email;
-    private String token;
+    private String password;
 }

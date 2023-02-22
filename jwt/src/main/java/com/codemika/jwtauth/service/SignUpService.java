@@ -1,7 +1,7 @@
 package com.codemika.jwtauth.service;
 
 import com.codemika.jwtauth.dto.RqCreateUser;
-import com.codemika.jwtauth.dto.RsCreateUser;
+import com.codemika.jwtauth.dto.RsCommonUser;
 import com.codemika.jwtauth.entity.UserEntity;
 import com.codemika.jwtauth.repository.UserRepository;
 import com.codemika.jwtauth.util.JwtUtil;
@@ -23,7 +23,7 @@ public class SignUpService {
 
         user = repository.save(user);
 
-        RsCreateUser response = new RsCreateUser()
+        RsCommonUser response = new RsCommonUser()
                 .setId(user.getId())
                 .setName(user.getFirstName())
                 .setSurname(user.getLastName())
