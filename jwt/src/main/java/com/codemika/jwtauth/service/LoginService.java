@@ -5,6 +5,8 @@ import com.codemika.jwtauth.dto.RsCommonUser;
 import com.codemika.jwtauth.entity.UserEntity;
 import com.codemika.jwtauth.repository.UserRepository;
 import com.codemika.jwtauth.util.JwtUtil;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,7 +36,11 @@ public class LoginService {
                     .body("incorrect password!");
         }
 
-        String newToken = jwt.generateToken();
+        Claims claims = Jwts.claims();
+        claims.put("id", user.get().getId());
+        claims.put("name", user.get().getFirstName());
+        claims.put("surname", user.get().getLastName());
+        String newToken = jwt.generateToken(claims);
 
         RsCommonUser rsUser = new RsCommonUser()
                 .setId(user.get().getId())

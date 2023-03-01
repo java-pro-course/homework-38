@@ -1,6 +1,7 @@
 package com.codemika.jwtauth.api;
 
 import com.codemika.jwtauth.util.JwtUtil;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,5 +25,26 @@ public class TestAuthController {
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
                 .body("token INVALID");
+    }
+
+    @GetMapping("be-lucky")
+    public ResponseEntity beLukyMethod(@RequestHeader("Authorisation") String token){
+        Claims parseToken = jwtUtil.getClaims(token);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(parseToken);
+    }
+
+    @GetMapping("my-profile")
+    public ResponseEntity myProfile(@RequestHeader("Authorisation") String token){
+        Claims parseToken = jwtUtil.getClaims(token);
+        Long id = parseToken.get("id", Long.class);
+        String name = parseToken.get("name", String.class);
+        String surname = parseToken.get("surname", String.class);
+
+
+        return ResponseEntity.ok(
+                String.format("Welcome %s %s. Your id is #%s.", surname, name, id )
+        );
     }
 }

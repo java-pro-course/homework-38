@@ -1,7 +1,9 @@
 package com.codemika.jwtauth.util;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +13,7 @@ import java.util.Date;
 @Component
 @Slf4j
 public class JwtUtil {
-    public String generateToken(){
+    public String generateToken(Claims claims) {
         long nowMillis = System.currentTimeMillis();
         long expMillis = nowMillis + 1000000L;
         Date exp = new Date(expMillis);
@@ -23,12 +25,25 @@ public class JwtUtil {
                 .compact();
     }
 
-    public boolean validateToken(final String token){
-        try{
+    public boolean validateToken(final String token) {
+        try {
             Jwts.parser().setSigningKey("secret").parseClaimsJws(token);
             return true;
-        }catch(RuntimeException e){
+        } catch (RuntimeException e) {
             log.error(e.getMessage());
         }
+        return false;
+    }
+
+    public Claims getClaims(String token) {
+        try{
+            return Jwts.parser()
+                    .setSigningKey("secret")
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (Exception e){
+            System.out.println(e.getMessage() + " => " + e);
+        }
+        return null;
     }
 }
