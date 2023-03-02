@@ -28,7 +28,8 @@ public class SignUpService {
         UserEntity user  = new UserEntity()
                 .setFirstName(rq.getName())
                 .setLastName(rq.getSurname())
-                .setEmail(rq.getEmail());
+                .setEmail(rq.getEmail())
+                .setPassword(rq.getPassword());
 
         user = repository.save(user);
 

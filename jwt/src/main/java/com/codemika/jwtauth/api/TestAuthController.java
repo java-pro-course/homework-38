@@ -19,7 +19,7 @@ public class TestAuthController {
     public ResponseEntity<?> testIsUserAuth(@RequestHeader("Authorisation") String token){
         if(jwtUtil.validateToken(token)){
             return ResponseEntity
-                    .status(HttpStatus.NOT_FOUND)
+                    .status(HttpStatus.OK)
                     .body("token valid!");
         }
         return ResponseEntity

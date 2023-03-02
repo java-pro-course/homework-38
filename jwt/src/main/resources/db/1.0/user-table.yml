@@ -5,7 +5,7 @@ databaseChangeLog:
       author: koritskiy-ay
       changes:
         - createTable:
-            schemaName: public
+            schemaName: jwt
             tableName: user
             columns:
               - column:
@@ -14,4 +14,24 @@ databaseChangeLog:
                   autoIncrement: true
                   constraints:
                     primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: last_name
+                  type: text
+                  constraints:
+                    nullable: false
+              - column:
+                  name: password
+                  type: text
+                  constraints:
                     nullable: false

@@ -5,5 +5,5 @@ spring:
     password: admin
   liquibase:
     enabled: true
-    liquibase-schema: public
+    liquibase-schema: jwt
     change-log: classpath:db/changelog-master.yml
