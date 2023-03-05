@@ -28,11 +28,10 @@ public class TestAuthController {
     }
 
     @GetMapping("be-lucky")
-    public ResponseEntity beLukyMethod(@RequestHeader("Authorisation") String token){
+    public ResponseEntity beLuckyMethod(@RequestHeader("Authorisation") String token){
         Claims parseToken = jwtUtil.getClaims(token);
         return ResponseEntity
-                .status(HttpStatus.OK)
-                .body(parseToken);
+                .ok(parseToken);
     }
 
     @GetMapping("my-profile")

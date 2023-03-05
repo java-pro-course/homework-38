@@ -43,7 +43,7 @@ public class SignUpService {
                 .setName(user.getFirstName())
                 .setSurname(user.getLastName())
                 .setEmail(user.getEmail())
-                .setToken(jwtUtil.generateToken(Jwts.claims()));
+                .setToken(jwtUtil.generateToken(claims));
 
 
         return ResponseEntity.ok(response);

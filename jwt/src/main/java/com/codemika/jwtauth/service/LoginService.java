@@ -40,6 +40,7 @@ public class LoginService {
         claims.put("id", user.get().getId());
         claims.put("name", user.get().getFirstName());
         claims.put("surname", user.get().getLastName());
+
         String newToken = jwt.generateToken(claims);
 
         RsCommonUser rsUser = new RsCommonUser()

@@ -19,6 +19,7 @@ public class JwtUtil {
         Date exp = new Date(expMillis);
 
         return Jwts.builder()
+                .setClaims(claims)
                 .setIssuedAt(new Date(nowMillis))
                 .setExpiration(exp)
                 .signWith(SignatureAlgorithm.HS512, "secret")
